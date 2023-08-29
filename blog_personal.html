@@ -22,6 +22,69 @@
             <h2>Imagen Personal</h2>
             <img src="FotoPerfil.jpeg" alt="Imagen personal de Tomás Issolio">
         </section>
+        <section class="database-table">
+            <h2>Tabla de Alumnos</h2>
+            <?php
+            // Configuración de la conexión a la base de datos
+            $servername = "nombre_de_tu_contenedor";
+            $username = "tu_usuario";
+            $password = "tu_contraseña";
+            $dbname = "alumnosdb";
+
+            // Crear conexión
+            $conn = new mysqli($servername, $username, $password, $dbname);
+
+            // Verificar la conexión
+            if ($conn->connect_error) {
+                die("Error de conexión: " . $conn->connect_error);
+            }
+
+            // Consulta para obtener los datos de la tabla
+            $sql = "SELECT * FROM alumnos";
+            $result = $conn->query($sql);
+
+            // Mostrar los datos en una tabla
+            if ($result->num_rows > 0) {
+                echo "<table>
+                        <tr>
+                            <th>ID</th>
+                            <th>Legajo</th>
+                            <th>DNI</th>
+                            <th>Apellido y Nombre</th>
+                            <th>Fecha de Nacimiento</th>
+                        </tr>";
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>
+                            <td>" . $row["id"] . "</td>
+                            <td>" . $row["legajo"] . "</td>
+                            <td>" . $row["dni"] . "</td>
+                            <td>" . $row["apellidoYNombre"] . "</td>
+                            <td>" . $row["fechaNacimiento"] . "</td>
+                          </tr>";
+                }
+                echo "</table>";
+            } else {
+                echo "No se encontraron datos en la tabla.";
+            }
+
+            // Cerrar conexión
+            $conn->close();
+            ?>
+        </section>
+        <section class="alumnos-data">
+        <h2>Datos de Alumnos</h2>
+        <table id="alumnos-table">
+            <tr>
+                <th>ID</th>
+                <th>Legajo</th>
+                <th>DNI</th>
+                <th>Apellido y Nombre</th>
+                <th>Fecha de Nacimiento</th>
+            </tr>
+            <!-- Aquí se cargarán los datos de los alumnos desde la base de datos -->
+            </table>
+        </section>
+        
         <section class="pdf-link">
             <h2>Informe TPF</h2>
             <p>Haz clic en el botón de abajo para acceder al informe del TPF:</p>
@@ -31,5 +94,35 @@
     <footer>
         <p>© 2023 Tomás Issolio - Blog Personal</p>
     </footer>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const table = document.getElementById("alumnos-table");
+
+        // Cambia estos valores por los datos reales de tu base de datos
+        const dbHost = "192.168.77.210";
+        const dbUser = "virtualizacion";
+        const dbPassword = "virtualizacion";
+        const dbName = "alumnosdb";
+
+        const url = `http://${dbHost}/alumnos.php`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(alumno => {
+                    const row = table.insertRow();
+                    row.innerHTML = `
+                        <td>${alumno.id}</td>
+                        <td>${alumno.legajo}</td>
+                        <td>${alumno.dni}</td>
+                        <td>${alumno.apellidoYNombre}</td>
+                        <td>${alumno.fechaNacimiento}</td>
+                    `;
+                });
+            })
+            .catch(error => console.error("Error fetching data:", error));
+    });
+    </script>
+
 </body>
 </html>
