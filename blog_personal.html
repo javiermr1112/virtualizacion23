@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Blog Personal - Tomás Issolio</title>
+    <title>Blog Personal - Javier Roza</title>
 </head>
 <body>
     <header>
-        <h1>Blog Personal de Tomás Issolio</h1>
+        <h1>Blog Personal de Javier Roza</h1>
     </header>
     <main>
         <section class="personal-info">
             <h2>Datos personales</h2>
-            <p><strong>Nombre y Apellido:</strong> Tomás Issolio</p>
-            <p><strong>DNI:</strong> 40114215</p>
-            <p><strong>Legajo:</strong> 50049</p>
-            <p><strong>Fecha de Nacimiento:</strong> 13 de Diciembre de 1996</p>
+            <p><strong>Nombre y Apellido:</strong> Javier Roza</p>
+            <p><strong>DNI:</strong> 34910490</p>
+            <p><strong>Legajo:</strong> 422274</p>
+            <p><strong>Fecha de Nacimiento:</strong> 11 de Diciembre de 1990</p>
         </section>
         <section class="profile-image">
             <h2>Imagen Personal</h2>
-            <img src="FotoPerfil.jpeg" alt="Imagen personal de Tomás Issolio">
+            <img src="FotoPerfil.jpeg" alt="Imagen personal de Javier Roza">
         </section>
         <section class="alumnos-data">
             <h2>Datos de Alumnos</h2>
@@ -29,11 +29,10 @@
                     <th>ID</th>
                     <th>Legajo</th>
                     <th>DNI</th>
-                    <th>Apellido y Nombre</th>
-                    <th>Fecha de Nacimiento</th>
+                    <th>Apellido y Nombre</th> 
                 </tr>
                 <?php
-                $mysqli = new mysqli("192.168.77.210", "virtualizacion", "virtualizacion", "alumnosdb", 3306);
+                $mysqli = new mysqli("192.168.77.217", "34910490", "34910490", "alumnos", 3306);
 
 if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
@@ -47,8 +46,7 @@ while ($row = $result->fetch_assoc()) {
         <td>" . $row["id"] . "</td>
         <td>" . $row["legajo"] . "</td>
         <td>" . $row["dni"] . "</td>
-        <td>" . $row["apellidoYNombre"] . "</td>
-        <td>" . $row["fechaNacimiento"] . "</td>
+        <td>" . $row["apellidoYnombre"] . "</td>
         </tr>";
 }
                 ?>
@@ -62,7 +60,7 @@ while ($row = $result->fetch_assoc()) {
         </section>
     </main>
     <footer>
-        <p>© 2023 Tomás Issolio - Blog Personal</p>
+        <p>© 2023 Javier Roza - Blog Personal</p>
     </footer>
 </body>
 </html>
